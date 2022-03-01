@@ -1,11 +1,14 @@
 //Imports
 const Joi = require('joi');
 const express = require('express');
-const router = express.Router();
 const bcrypt = require('bcrypt');
 const { User } = require('../models/user');
 
+//Define router
+const router = express.Router();
+
 //Endpoint Handler
+//Login existing user - email, password
 router.post('/', async (req, res) => {
     try {
         const { error } = validateLogin(req.body);
