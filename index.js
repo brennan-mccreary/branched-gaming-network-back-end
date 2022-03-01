@@ -8,8 +8,10 @@ const path = require('path');
 
 //Route Imports
 const users = require('./routes/users');
-const auth = require('./routes/auth');
 const partners = require('./routes/partners');
+const polls = require('./routes/polls');
+const auth = require('./routes/auth');
+
 
 //Run database connection 
 connectDB();
@@ -18,7 +20,8 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 app.use('/api/users', users);
-app.use('/api/partners', partners)
+app.use('/api/partners', partners);
+app.use('/api/polls', polls);
 app.use('/api/auth', auth);
 
 //Image collection middleware

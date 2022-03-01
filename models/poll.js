@@ -7,7 +7,7 @@ const { optionSchema } = require('./option');
 //Define Poll schema
 const pollSchema = new mongoose.Schema({
     title: {type: String, required: true, minlength: 1, maxlength: 30},
-    options: [{type: optionSchema, required: true, default: []}],
+    options: {type: [optionSchema], default: []},
 
     totalVotes: {type: Number, required: true, default: 0},
     voters: [{type: mongoose.Types.ObjectId, ref: 'User'}],
