@@ -39,6 +39,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
+//!!NOTE: Add identity check to only allow users to delete their own accounts!!
 //DELETE User - id, auth
 router.delete('/delete/:id', auth, async (req, res) => {
     try {

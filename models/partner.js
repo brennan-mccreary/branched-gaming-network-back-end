@@ -20,7 +20,6 @@ function validatePartner(partner) {
         firstName: Joi.string().min(1).max(30).required(),
         lastName: Joi.string().min(1).max(30).required(),
         username: Joi.string().min(1).max(30).required(),
-        image: Joi.string().required(),
     });
     return schema.validate(partner);
 };
