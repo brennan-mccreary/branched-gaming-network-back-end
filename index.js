@@ -4,9 +4,8 @@ const cors = require('cors');
 const express = require('express');
 const app = express();
 
-
 //Route Imports
-
+const auth = require('./routes/auth');
 
 //Run database connection 
 connectDB();
@@ -14,6 +13,7 @@ connectDB();
 //Run App initialization middleware
 app.use(cors());
 app.use(express.json());
+app.use('/api/auth', auth);
 
 //Listener
 const port = process.env.PORT || 5003;
