@@ -9,6 +9,8 @@ const partnerSchema = new mongoose.Schema({
 
     username: {type: String, required: true, minlength: 1, maxlength: 30},
     image: {type: String, required: true, default: ''},
+
+    user_id: {type: String, required: true}
 });
 
 //Create model 
@@ -20,6 +22,7 @@ function validatePartner(partner) {
         firstName: Joi.string().min(1).max(30).required(),
         lastName: Joi.string().min(1).max(30).required(),
         username: Joi.string().min(1).max(30).required(),
+        user_id: Joi.string().required()
     });
     return schema.validate(partner);
 };

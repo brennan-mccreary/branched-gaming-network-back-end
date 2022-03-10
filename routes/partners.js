@@ -23,6 +23,7 @@ router.post('/create', [auth, admin, fileUpload.single('image')], async (req, re
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             username: req.body.username,
+            user_id: req.body.user_id,
             image: req.file.path
         });
 
@@ -51,7 +52,7 @@ router.delete('/remove/:id', [auth, admin], async (req, res) => {
 });
 
 //Test Endpoints
-//GET All Users
+//GET All Partners
 router.get('/', async (req, res) => {
     try {
         const partners = await Partner.find();
