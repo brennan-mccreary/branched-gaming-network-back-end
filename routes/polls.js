@@ -34,7 +34,7 @@ router.post('/create', [auth, admin], async (req, res) => {
 });
 
 //PUT Poll vote - poll id, option id, auth
-router.put('/:id/vote/:poll/:option', auth, async (req, res) => {
+router.put('/:id/vote/:poll/:option', [auth], async (req, res) => {
     try {
         let options = await Poll.findById(req.params.poll);
         options = options.options;
@@ -53,7 +53,9 @@ router.put('/:id/vote/:poll/:option', auth, async (req, res) => {
         poll.options.splice(index, 1, option);
         await poll.save();
         
-        return res.send(poll);
+        const polls = await Poll.find();
+
+        return res.send(polls);
     }
     catch(err) {
         return res.status(500).send(`Internal Server Error: ${err}`);
@@ -67,8 +69,9 @@ router.delete('/remove/:id', [auth, admin], async (req, res) => {
         if(!poll) return res.status(400).send(`The poll with id: "${req.params.id}" does not exist.`);
     
         poll = await poll.remove();
+        const polls = await Poll.find();
 
-        return res.send(poll);
+        return res.send(polls);
     }
     catch(err) {
         return res.status(500).send(`Internal Server Error: ${err}`);
@@ -84,6 +87,21 @@ router.get('/', async (req, res) => {
         return res.send(polls);
     } catch (err) {
         return res.status(500).send(`Internal Server Error: ${err}`);
+    }
+});
+
+//PUT Edited Poll From Admin
+router.put('/edit/:id', [auth, admin], async (req, res) => {
+    try {
+        const poll = await Poll.findByIdAndUpdate(req.params.id, {title: req.body.title}, {new: true})
+
+        await poll.save();
+
+        const polls = await Poll.find();
+
+        return res.send(polls);
+    } catch (err) {
+        return res.status(500).send(`Internal Server Error: ${err}`)
     }
 });
 

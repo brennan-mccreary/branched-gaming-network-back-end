@@ -23,8 +23,8 @@ router.post('/create', [auth, admin, fileUpload.single('image')], async (req, re
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             username: req.body.username,
-            user_id: req.body.user_id,
-            image: req.file.path
+            image: req.file.path,
+            user_id: req.body.user_id
         });
 
         await partner.save();
@@ -44,7 +44,9 @@ router.delete('/remove/:id', [auth, admin], async (req, res) => {
     
         partner = await partner.remove();
 
-        return res.send(partner);
+        const partners = await Partner.find();
+
+        return res.send(partners);
     }
     catch(err) {
         return res.status(500).send(`Internal Server Error: ${err}`);
